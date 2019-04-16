@@ -1,5 +1,6 @@
 ﻿using AssimentMVS_Identity.DataBase;
 using AssimentMVS_Identity.Models.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,13 @@ namespace AssimentMVS_Identity.Models.Service
             return _travelDbContext.People.ToList();
         }
 
-        public Person CreatePerson(string name, int age)
+        public Person CreatePerson(Person person, int perId)//001
         {
-            Person person = new Person() { Name = name, Age = age };
+            var name = _travelDbContext.Cities
+                   .Include(c => c.People)//001
+                   .SingleOrDefault(c => c.Id == perId);
+
+            name.People.Add(person);//001
 
             _travelDbContext.People.Add(person);
             _travelDbContext.SaveChanges();

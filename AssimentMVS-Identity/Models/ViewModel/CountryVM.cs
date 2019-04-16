@@ -13,6 +13,10 @@ namespace AssimentMVS_Identity.Models.ViewModel
         [Required]
         public string Name { get; set; }
 
+        public Country Country { get; set; }
+
+        public City City { get; set; }
+
         public List<City> Cities = new List<City>();
 
         public List<Person> People = new List<Person>();

@@ -14,8 +14,8 @@ namespace AssimentMVS_Identity.Models.Interface
 
         Country FindCountry(int id);
 
-        bool DeleteCountry(int id);
-
         bool UpdateCountry(Country country);
+
+        bool DeleteCountry(int id);
     }
 }

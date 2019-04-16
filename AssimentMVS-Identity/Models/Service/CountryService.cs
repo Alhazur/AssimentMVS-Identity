@@ -1,6 +1,7 @@
 ﻿using AssimentMVS_Identity.DataBase;
 using AssimentMVS_Identity.Models.Class;
 using AssimentMVS_Identity.Models.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,17 @@ namespace AssimentMVS_Identity.Models.Service
 
         public List<Country> AllCountry()
         {
-            return _travelDbContext.Countries.ToList();
+            return _travelDbContext.Countries
+                .Include(c => c.Cities)//001
+                .ToList();
         }
 
         public Country CreateCountry(string name)
         {
-            Country country = new Country() { Name = name };
+            Country country = new Country()
+            {
+                Name = name
+            };
 
             _travelDbContext.Countries.Add(country);
             _travelDbContext.SaveChanges();
@@ -35,7 +41,10 @@ namespace AssimentMVS_Identity.Models.Service
         {
             bool wasRemoved = false;
 
-            Country country = _travelDbContext.Countries.SingleOrDefault(g => g.Id == id);
+            Country country = _travelDbContext.Countries
+                .Include(s => s.Cities)//001
+                .Include("People")
+                .SingleOrDefault(g => g.Id == id);
 
             if (country == null)
             {
@@ -49,13 +58,17 @@ namespace AssimentMVS_Identity.Models.Service
 
         public Country FindCountry(int id)
         {
-            return _travelDbContext.Countries.SingleOrDefault(c => c.Id == id);
+            return _travelDbContext.Countries
+                .Include(c => c.Cities)//001
+                .SingleOrDefault(c => c.Id == id);
         }
 
         public bool UpdateCountry(Country country)
         {
             bool wasUpdate = false;
             Country stud = _travelDbContext.Countries
+                .Include(s => s.Cities)//001
+                .Include("People")
                 .SingleOrDefault(teachers => teachers.Id == country.Id);
             {
                 if (stud != null)

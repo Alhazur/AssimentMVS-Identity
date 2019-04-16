@@ -1,0 +1,19 @@
+﻿@model Person
+
+<div id="@("person" + Model.Id)" class="col-12 listrow">
+    <div class="row">
+        <div class="col">@Model.Name</div>
+        <div class="col">@Model.Age</div>
+        <div class="col">
+            <div class="row">
+
+                <div class="col">                                                               @* get                  get *@
+                    <button class="btn btn-warning" onclick="LinkUpdate('@Url.Action("Edit", "Person", new {id = Model.Id })' , '@("person" + Model.Id)')">
+                        Edit
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,14 +4,14 @@ namespace AssimentMVS_Identity.Models.Interface
 {
     public interface IPersonService
     {
-        Person CreatePerson(string name, int age);
+        Person CreatePerson(Person person, int perId);
 
         List<Person> AllPersons();
 
         Person FindPerson(int id);
 
-        bool DeletePerson(int id);
-
         bool UpdatePerson(Person person);
+
+        bool DeletePerson(int id);
     }
 }

@@ -8,6 +8,8 @@ namespace AssimentMVS_Identity.Models.ViewModel
 {
     public class PersonVM
     {
+        public int PersonId { get; set; }//001
+
         public List<City> Cities = new List<City>();
 
         public List<Country> Countries = new List<Country>();

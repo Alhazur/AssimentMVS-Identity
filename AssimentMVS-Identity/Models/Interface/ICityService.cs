@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace AssimentMVS_Identity.Models.Interface
 {
-    interface ICityService
+    public interface ICityService
     {
-        City CreateCity(string name);
+        City CreateCity(City city, int countryId);//001
 
         List<City> AllCities();
 
         City FindCity(int id);
 
-        bool DeleteCity(int id);
-
         bool UpdateCity(City city);
+
+        bool DeleteCity(int id);
     }
 }

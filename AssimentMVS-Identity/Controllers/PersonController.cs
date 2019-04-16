@@ -29,19 +29,31 @@ namespace AssimentMVS_Identity.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreatePerson(Person person)
+        //public IActionResult CreatePerson(Person person)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        person = _personService.CreatePerson(person.Name, person.Age);
+
+        //        return PartialView("_Person", person);
+        //    }
+
+        //    return View(person);
+        //}
+
+        public IActionResult Person(Person person)
         {
             if (ModelState.IsValid)
             {
-                person = _personService.CreatePerson(person.Name, person.Age);
-                return RedirectToAction(nameof(Index));
-            }
+                var item = _personService.FindPerson((int)person.Id);
 
+                return PartialView("_Person", item);
+            }
             return View(person);
         }
 
         [HttpGet]
-        public IActionResult EditPerson(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -53,19 +65,19 @@ namespace AssimentMVS_Identity.Controllers
                 return NotFound();
             }
 
-            return View(person);
+            return PartialView("_Edit", person);
         }
 
         [HttpPost]
-        public IActionResult EditPerson(Person person)
+        public IActionResult Edit(Person person)
         {
             if (ModelState.IsValid)
             {
                 _personService.UpdatePerson(person);
-                return RedirectToAction(nameof(Index));
+                return PartialView("_Edit", person);
             }
 
-            return View(person);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AssimentMVS_Identity.DataBase;
 using AssimentMVS_Identity.Models.Class;
 using AssimentMVS_Identity.Models.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,14 @@ namespace AssimentMVS_Identity.Models.Service
             return _travelDbContext.Cities.ToList();
         }
 
-        public City CreateCity(string name)
+        public City CreateCity(City city, int countryId)//001
         {
-            City city = new City() { Name = name };
+            var name = _travelDbContext.Countries
+                .Include(c => c.Cities)//001
+                .SingleOrDefault(c => c.Id == countryId);
 
-            _travelDbContext.Cities.Add(city);
+            name.Cities.Add(city);//001
+
             _travelDbContext.SaveChanges();
             return city;
         }
