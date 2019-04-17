@@ -24,7 +24,7 @@ namespace AssimentMVS_Identity.Models.Service
         {
             var name = _travelDbContext.Countries
                 .Include(c => c.Cities)//001
-                .Include(p => p.People)
+                .ThenInclude(p => p.People)
                 .SingleOrDefault(c => c.Id == countryId);
 
             name.Cities.Add(city);//001
@@ -37,7 +37,9 @@ namespace AssimentMVS_Identity.Models.Service
         {
             bool wasRemoved = false;
 
-            City city = _travelDbContext.Cities.SingleOrDefault(g => g.Id == id);
+            City city = _travelDbContext.Cities
+                .Include(p => p.People)
+                .SingleOrDefault(g => g.Id == id);
 
             if (city == null)
             {
@@ -70,6 +72,7 @@ namespace AssimentMVS_Identity.Models.Service
         {
             bool wasUpdate = false;
             City orig = _travelDbContext.Cities
+                .Include(p => p.People)
                 .SingleOrDefault(s => s.Id == city.Id);
             {
                 if (orig != null)

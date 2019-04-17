@@ -43,7 +43,7 @@ namespace AssimentMVS_Identity.Controllers
             if (ModelState.IsValid)
             {
                 _cityService.CreateCity(city, countryId);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), "Country", new { id = countryId });
             }
             return View(city);
         }
@@ -68,25 +68,23 @@ namespace AssimentMVS_Identity.Controllers
             {
                 return NotFound();
             }
-            var city = _cityService.FindCity((int)id);
-            if (city == null)
+            var country = _countryService.FindCountry((int)id);
+            if (country == null)
             {
                 return NotFound();
             }
-            return View(city);
+            return View(country);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Country country)
         {
-
             if (ModelState.IsValid)
             {
                 _countryService.UpdateCountry(country);
                 return RedirectToAction(nameof(Index));
             }
-
             return View(country);
         }
 

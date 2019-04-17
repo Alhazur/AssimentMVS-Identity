@@ -5,7 +5,6 @@
 }
 
 <h1>Details</h1>
-<h2>City info</h2>
 <hr />
 
 <div>
@@ -18,12 +17,13 @@
         </dd>
     </dl>
 
-    <hr />                                                              
+    <hr />
     <a class="btn btn-primary" asp-controller="City" asp-action="CreatePer" asp-route-cityId="@Model.Id">Create person</a>
 
     <table class="table table-striped table-dark">
         <thead>
             <tr>
+                <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Age</th>
                 <th scope="col">Options</th>
@@ -35,17 +35,18 @@
                 @foreach (var item in Model.People)
                 {
                     <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
                         <td>@Html.DisplayFor(modelItem => item.Name)</td>
                         <td>@Html.DisplayFor(modelItem => item.Age)</td>
                         <td>
                             <a class="btn btn-danger" asp-controller="City" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                         </td>
                     </tr>
-}
+                }
             }
         </tbody>
     </table>
-
+    <a class="btn btn-danger" asp-controller="Country" asp-action="Index">Back to Countries</a>
     <hr />
 </div>
 

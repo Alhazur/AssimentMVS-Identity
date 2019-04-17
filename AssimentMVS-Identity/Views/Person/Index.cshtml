@@ -5,10 +5,10 @@
 
 <h1>Person List</h1>
 
-<form class="row">
+<form>
     <span class="col-12">
-            <p class="col">Name:<input type="text" id="createName" name="name"></p>
-            <p class="col">Age:<input type="text" id="createAge" name="age"></p>
+            <p class="col"><input type="text" id="createName" name="name" placeholder="Name"></p>
+            <p class="col"><input type="text" id="createAge" name="age" placeholder="Age"></p>
             <p class="col">
                 <button class="btn btn-success" onclick="LinkCreate('@Url.Action("CreatePerson", "Person")')">
                     Create Person
@@ -16,11 +16,10 @@
             </p>        
     </span>
 </form>
-<hr />
-<div class="row MarginZero">
+@*<div>
     <div class="col"><b>Name</b></div>
     <div class="col"><b>Age</b></div>
-    <hr />
+    
     <div id="AllPersons">
         @foreach (var item in Model)
         {
@@ -28,9 +27,9 @@
         }
 
     </div>
-</div>
+</div>*@
 
-@*<table class="table">
+<table class="table">
     <thead>
         <tr>
             <th>Name</th>
@@ -40,12 +39,15 @@
     </thead>
     <tbody>
         <tr>
-            <td><input type="text" id="createName" name="name"></td>
-            <td><input type="text" id="createAge" name="age"></td>
-            <td><button class="btn btn-success" onclick="LinkCreate('@Url.Action("CreatePerson", "Person")')">
-    Create Person
-</button></td>
+            <td></td>
         </tr>
     </tbody>
-</table>*@
+</table>
 
+<div id="AllPersons">
+    @foreach (var item in Model)
+    {
+        @await Html.PartialAsync("_Person", item)
+    }
+
+</div>

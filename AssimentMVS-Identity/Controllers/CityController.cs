@@ -68,7 +68,7 @@ namespace AssimentMVS_Identity.Controllers
             if (ModelState.IsValid)
             {
                 _cityService.UpdateCity(city);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), "Country", new { id = city.Id });//?????
             }
 
             return View(city);
@@ -79,7 +79,6 @@ namespace AssimentMVS_Identity.Controllers
             if (id != null)
             {
                 _personService.DeletePerson((int)id);//001
-
                 return RedirectToAction(nameof(Index));
             }
             return Content("");
