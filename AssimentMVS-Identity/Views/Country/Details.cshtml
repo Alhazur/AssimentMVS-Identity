@@ -18,8 +18,8 @@
         </dd>
     </dl>
 
-    <hr />
-    <a class="btn btn-primary" asp-controller="Country" asp-action="CreateCity" asp-route-courseId="@Model.Id">Create City</a>
+    <hr />                                                              @* CreateCity(int countryId) get method *@
+    <a class="btn btn-primary" asp-controller="Country" asp-action="CreateCity" asp-route-countryId="@Model.Id">Create City</a>
 
     <table class="table table-striped table-dark">
         <thead>
@@ -34,7 +34,9 @@
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.Name)</td>
                     <td>
-                        <a class="btn btn-danger" asp-controller="Country" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a class="btn btn-primary" asp-controller="Country" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-info"    asp-controller="City" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-danger"  asp-controller="Country" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 </tr>
             }

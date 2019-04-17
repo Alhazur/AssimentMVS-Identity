@@ -1,11 +1,8 @@
 ﻿using AssimentMVS_Identity.DataBase;
-using AssimentMVS_Identity.Models.Class;
 using AssimentMVS_Identity.Models.Interface;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AssimentMVS_Identity.Models.Service
 {
@@ -27,6 +24,7 @@ namespace AssimentMVS_Identity.Models.Service
         {
             var name = _travelDbContext.Countries
                 .Include(c => c.Cities)//001
+                .Include(p => p.People)
                 .SingleOrDefault(c => c.Id == countryId);
 
             name.Cities.Add(city);//001
@@ -53,7 +51,19 @@ namespace AssimentMVS_Identity.Models.Service
 
         public City FindCity(int id)
         {
-            return _travelDbContext.Cities.SingleOrDefault(c => c.Id == id);
+            if (id == 0)
+            {
+                return null;
+            }
+
+            var city = _travelDbContext.Cities
+                .Include(x => x.People)
+                .ThenInclude(x => x.City)
+                .SingleOrDefault(x => x.Id == id);
+
+            return city;
+
+            //return _travelDbContext.Cities.SingleOrDefault(c => c.Id == id);
         }
 
         public bool UpdateCity(City city)

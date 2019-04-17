@@ -1,5 +1,4 @@
-﻿using AssimentMVS_Identity.Models.Class;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AssimentMVS_Identity.Models
@@ -11,5 +10,7 @@ namespace AssimentMVS_Identity.Models
         public string Name { get; set; }
 
         public List<City> Cities { get; set; }
+
+        public List<Person> People { get; set; }
     }
 }

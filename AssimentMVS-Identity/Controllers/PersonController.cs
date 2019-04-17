@@ -4,12 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using AssimentMVS_Identity.Models;
 using AssimentMVS_Identity.Models.Interface;
+using AssimentMVS_Identity.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssimentMVS_Identity.Controllers
 {
     public class PersonController : Controller
     {
+        CountryVM CountryVM = new CountryVM();
+
         private readonly IPersonService _personService;
 
         public PersonController(IPersonService personService)
@@ -18,7 +21,7 @@ namespace AssimentMVS_Identity.Controllers
         }
 
         public IActionResult Index()
-        {
+        {            
             return View(_personService.AllPersons());
         }
 
@@ -27,19 +30,19 @@ namespace AssimentMVS_Identity.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public IActionResult CreatePerson(Person person)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        person = _personService.CreatePerson(person.Name, person.Age);
+        public IActionResult CreatePerson(Person person)
+        {
+            if (ModelState.IsValid)
+            {
+                person = _personService.CreatePerson(person, person.Id);
 
-        //        return PartialView("_Person", person);
-        //    }
-
-        //    return View(person);
-        //}
+                return PartialView("_Person", person);
+            }
+            return BadRequest();            
+        }
 
         public IActionResult Person(Person person)
         {
@@ -49,7 +52,7 @@ namespace AssimentMVS_Identity.Controllers
 
                 return PartialView("_Person", item);
             }
-            return View(person);
+            return NotFound();
         }
 
         [HttpGet]
@@ -77,7 +80,7 @@ namespace AssimentMVS_Identity.Controllers
                 return PartialView("_Edit", person);
             }
 
-            return RedirectToAction(nameof(Index));
+            return PartialView("_Edit", person);
         }
     }
 }

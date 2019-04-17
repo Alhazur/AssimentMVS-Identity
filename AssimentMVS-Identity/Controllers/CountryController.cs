@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AssimentMVS_Identity.Models;
-using AssimentMVS_Identity.Models.Class;
+﻿using AssimentMVS_Identity.Models;
 using AssimentMVS_Identity.Models.Interface;
 using AssimentMVS_Identity.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +38,18 @@ namespace AssimentMVS_Identity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public IActionResult CreateCity(City city, int countryId)//001
+        {
+            if (ModelState.IsValid)
+            {
+                _cityService.CreateCity(city, countryId);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(city);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateCountry(Country country)
         {
             if (ModelState.IsValid)
@@ -52,18 +59,6 @@ namespace AssimentMVS_Identity.Controllers
             }
 
             return View(country);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CreateCity(City city, int countryId)//001
-        {
-            if (ModelState.IsValid)
-            {
-                _cityService.CreateCity(city, countryId);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(city);
         }
 
         [HttpGet]
@@ -123,6 +118,7 @@ namespace AssimentMVS_Identity.Controllers
 
             CountryVM vm = new CountryVM();//001
             vm.Country = country;
+
             vm.Cities = country.Cities;
             
             return View(country);

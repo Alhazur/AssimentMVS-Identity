@@ -1,11 +1,8 @@
 ﻿using AssimentMVS_Identity.DataBase;
-using AssimentMVS_Identity.Models.Class;
 using AssimentMVS_Identity.Models.Interface;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AssimentMVS_Identity.Models.Service
 {
@@ -22,6 +19,7 @@ namespace AssimentMVS_Identity.Models.Service
         {
             return _travelDbContext.Countries
                 .Include(c => c.Cities)//001
+                .Include(p => p.People)
                 .ToList();
         }
 
@@ -43,7 +41,7 @@ namespace AssimentMVS_Identity.Models.Service
 
             Country country = _travelDbContext.Countries
                 .Include(s => s.Cities)//001
-                .Include("People")
+                .Include(p => p.People)
                 .SingleOrDefault(g => g.Id == id);
 
             if (country == null)
@@ -68,7 +66,7 @@ namespace AssimentMVS_Identity.Models.Service
             bool wasUpdate = false;
             Country stud = _travelDbContext.Countries
                 .Include(s => s.Cities)//001
-                .Include("People")
+                .Include(p => p.People)
                 .SingleOrDefault(teachers => teachers.Id == country.Id);
             {
                 if (stud != null)

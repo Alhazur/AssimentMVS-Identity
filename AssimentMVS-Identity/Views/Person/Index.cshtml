@@ -5,30 +5,47 @@
 
 <h1>Person List</h1>
 
-<div class="row">
-    <div class="col-12">
-        <div class="row">
-            <div class="col">Name:<input type="text" id="createName" name="name"></div>
-            <div class="col">Age:<input type="text" id="createAge" name="age"></div>
-            <div class="col">
+<form class="row">
+    <span class="col-12">
+            <p class="col">Name:<input type="text" id="createName" name="name"></p>
+            <p class="col">Age:<input type="text" id="createAge" name="age"></p>
+            <p class="col">
                 <button class="btn btn-success" onclick="LinkCreate('@Url.Action("CreatePerson", "Person")')">
                     Create Person
                 </button>
-            </div>
-        </div>
-    </div>
-</div>
+            </p>        
+    </span>
+</form>
 <hr />
-<div class="row">
+<div class="row MarginZero">
     <div class="col"><b>Name</b></div>
     <div class="col"><b>Age</b></div>
-</div>
-<hr />
-<div id="AllPersons">
-    @foreach (var item in Model)
-    {
-        @await Html.PartialAsync("_Person", item)
-    }
+    <hr />
+    <div id="AllPersons">
+        @foreach (var item in Model)
+        {
+            @await Html.PartialAsync("_Person", item)
+        }
 
+    </div>
 </div>
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="text" id="createName" name="name"></td>
+            <td><input type="text" id="createAge" name="age"></td>
+            <td><button class="btn btn-success" onclick="LinkCreate('@Url.Action("CreatePerson", "Person")')">
+    Create Person
+</button></td>
+        </tr>
+    </tbody>
+</table>*@
 

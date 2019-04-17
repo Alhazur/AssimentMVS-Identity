@@ -1,9 +1,5 @@
-﻿using AssimentMVS_Identity.Models.Class;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AssimentMVS_Identity.Models.ViewModel
 {
@@ -14,7 +10,7 @@ namespace AssimentMVS_Identity.Models.ViewModel
         public string Name { get; set; }
 
         public int CountryId { get; set; }//001
-
+        
         public Country Country { get; set; }
 
         public List<Person> People = new List<Person>();

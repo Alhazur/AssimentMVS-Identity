@@ -4,7 +4,7 @@ namespace AssimentMVS_Identity.Models.Interface
 {
     public interface IPersonService
     {
-        Person CreatePerson(Person person, int perId);
+        Person CreatePerson(Person person, int cityId);
 
         List<Person> AllPersons();
 

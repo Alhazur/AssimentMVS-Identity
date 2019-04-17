@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AssimentMVS_Identity.Models;
-using AssimentMVS_Identity.Models.Class;
+﻿using AssimentMVS_Identity.Models;
 using AssimentMVS_Identity.Models.Interface;
 using AssimentMVS_Identity.Models.ViewModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssimentMVS_Identity.Controllers
@@ -22,50 +16,34 @@ namespace AssimentMVS_Identity.Controllers
             _personService = personService;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            return View(_cityService.AllCities());
-        }
+            var city = _cityService.FindCity(id);
 
-        public IActionResult CreateCountry()
-        {
-            return View();
-        }
+            return View(city);
+        }                
 
-        public IActionResult Create(int personId)//001
+        public IActionResult CreatePer(int cityId)//001
         {
             var vm = new PersonVM
             {
-                PersonId = personId
+                CityId = cityId//ta city id o koppla till person
             };
 
             return View(vm);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        ////public IActionResult CreateCountry(City city)
-        ////{
-        ////    if (ModelState.IsValid)
-        ////    {
-        ////        city = _cityService.CreateCity(city.Name);
-        ////        return RedirectToAction(nameof(Index));
-        ////    }
-
-        ////    return View(city);
-        ////}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult CreatePer(Person person, int perId)//001
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _personService.CreatePerson(person, perId);
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(person);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreatePer(Person person, int cityId)//001
+        {
+            if (ModelState.IsValid)
+            {
+                _personService.CreatePerson(person, cityId);
+                return RedirectToAction(nameof(Details), "City", new { id = cityId });
+            }
+            return View(person);
+        }
 
         [HttpGet]
         public IActionResult Edit(int? id)

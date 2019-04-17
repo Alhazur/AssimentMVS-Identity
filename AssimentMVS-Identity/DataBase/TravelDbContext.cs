@@ -1,12 +1,6 @@
 ﻿using AssimentMVS_Identity.Models;
-using AssimentMVS_Identity.Models.Class;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AssimentMVS_Identity.DataBase
 {

@@ -1,9 +1,5 @@
-﻿using AssimentMVS_Identity.Models.Class;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AssimentMVS_Identity.Models.ViewModel
 {
@@ -13,12 +9,19 @@ namespace AssimentMVS_Identity.Models.ViewModel
         [Required]
         public string Name { get; set; }
 
-        public Country Country { get; set; }
+        public string Age { get; set; }
 
-        public City City { get; set; }
+        public List<Country> Countries = new List<Country>();
 
         public List<City> Cities = new List<City>();
 
         public List<Person> People = new List<Person>();
+
+        public Country Country { get; set; }
+
+        public City City { get; set; }
+
+        public Person Person { get; set; }
+
     }
 }

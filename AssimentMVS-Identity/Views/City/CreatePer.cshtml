@@ -1,15 +1,15 @@
-﻿@model CityVM
+﻿@model PersonVM
 @{
     ViewData["Title"] = "Cities";
 }
 
-<h1>Cities</h1>
+<h1>Create Person</h1>
 
 <br />
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-controller="Country" asp-action="CreateCity">
+        <form asp-controller="City" asp-action="CreatePer">
             <div class="row form-border">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
@@ -18,11 +18,17 @@
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="Age" class="control-label"></label>
+                    <input asp-for="Age" class="form-control" />
+                    <span asp-validation-for="Age" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <input class="btn btn-sm btn-success" type="submit" value="Create City" />
-                    <a class="btn btn-danger" asp-action="Details" asp-route-id="@Model.CountryId">Back to Country</a>
+                    <a class="btn btn-danger" asp-controller="City" asp-action="Details" asp-route-id="@Model.CityId">Back to Cities</a>
                 </div>                                                 @*     id from details ex ((int) id)   *@
             </div>
-            <input asp-for="CountryId" type="hidden" />
+            <input type="hidden" value="@Model.CityId" name="cityId" />
         </form>
     </div>
 </div>
+
