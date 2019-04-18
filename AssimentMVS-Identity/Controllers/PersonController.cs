@@ -21,8 +21,9 @@ namespace AssimentMVS_Identity.Controllers
         }
 
         public IActionResult Index()
-        {            
-            return View(_personService.AllPersons());
+        {
+            CountryVM.People = _personService.AllPersons();
+            return View(CountryVM.People);
         }
 
         [HttpGet]
@@ -37,22 +38,11 @@ namespace AssimentMVS_Identity.Controllers
         {
             if (ModelState.IsValid)
             {
-                person = _personService.CreatePerson(person, person.Id);
+                person = _personService.CreatePersonWithoutCity(person);
 
-                return PartialView("_Person", person);
+                return RedirectToAction(nameof(Index));
             }
             return BadRequest();            
-        }
-
-        public IActionResult Person(Person person)
-        {
-            if (ModelState.IsValid)
-            {
-                var item = _personService.FindPerson((int)person.Id);
-
-                return PartialView("_Person", item);
-            }
-            return NotFound();
         }
 
         [HttpGet]
@@ -68,7 +58,7 @@ namespace AssimentMVS_Identity.Controllers
                 return NotFound();
             }
 
-            return PartialView("_Edit", person);
+            return View(person);
         }
 
         [HttpPost]
@@ -77,10 +67,20 @@ namespace AssimentMVS_Identity.Controllers
             if (ModelState.IsValid)
             {
                 _personService.UpdatePerson(person);
-                return PartialView("_Edit", person);
+                return RedirectToAction(nameof(Index));
             }
 
-            return PartialView("_Edit", person);
+            return View(person);
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id != null)
+            {
+                _personService.DeletePerson((int)id);
+                return RedirectToAction(nameof(Index));
+            }
+            return Content("");
         }
     }
 }

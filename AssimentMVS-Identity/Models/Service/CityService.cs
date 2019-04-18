@@ -60,7 +60,7 @@ namespace AssimentMVS_Identity.Models.Service
 
             var city = _travelDbContext.Cities
                 .Include(x => x.People)
-                .ThenInclude(x => x.City)
+                .Include(c => c.Country)
                 .SingleOrDefault(x => x.Id == id);
 
             return city;

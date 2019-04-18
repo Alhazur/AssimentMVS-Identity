@@ -67,11 +67,41 @@ namespace AssimentMVS_Identity.Controllers
 
             if (ModelState.IsValid)
             {
-                _cityService.UpdateCity(city);
-                return RedirectToAction(nameof(Details), "Country", new { id = city.Id });//?????
+                _cityService.UpdateCity(city);//         controller Details(id) sen city country id
+                return RedirectToAction(nameof(Details), "Country", new { id = city.Country.Id });
             }
 
             return View(city);
+        }
+
+        [HttpGet]
+        public IActionResult EditPerson(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var person = _personService.FindPersonWithCity((int)id);
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            return View(person);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditPerson(Person person, int? cityId)
+        {
+            if (ModelState.IsValid)
+            {
+                _personService.UpdatePersonWithCity(person, cityId);
+
+                return RedirectToAction(nameof(Details), "City", new { id = cityId });
+            }
+
+            return View(person);
         }
 
         public IActionResult Delete(int? id)

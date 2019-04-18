@@ -1,0 +1,24 @@
+﻿@model Person
+
+@{
+    ViewData["Title"] = "Edit Person";
+}
+
+<h1>Edit</h1>
+
+<h4>Person</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="City" asp-action="EditPerson" asp-route-cityId="@Model.City.Id" asp-route-ID="@Model.Id">
+
+            <partial name="_EditPerson" model="Model" />
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-danger" asp-controller="City" asp-action="Details" asp-route-id="@Model.City.Id">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
