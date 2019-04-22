@@ -82,13 +82,13 @@ namespace AssimentMVS_Identity.Models.Service
             return _travelDbContext.People.SingleOrDefault(c => c.Id == id);
         }
 
-        public Person FindPersonWithCity(int? id)
+        public Person FindPersonWithCity(int? id)//001
         {
-            if (id != null || id != 0)
+            if (id != null)
             {
                 return _travelDbContext.People
-                    .Include(x => x.City)
-                    .SingleOrDefault(x => x.Id == id);
+                    .Include(c => c.City)
+                    .SingleOrDefault(c => c.Id == id);
             }
             return null;
         }
@@ -115,14 +115,9 @@ namespace AssimentMVS_Identity.Models.Service
         {
             bool wasUpdate = false;
 
-            //var city = _travelDbContext.Cities
-            //    .Include(x=>x.People)
-            //    .Include(x=>x.Country)
-            //    .SingleOrDefault(x => x.Id == id);
-
             Person stud = _travelDbContext.People
-                .Include(x => x.City)
-                .ThenInclude(x=>x.Country)
+                .Include(c => c.City)
+                .ThenInclude(c => c.Country)
                 .SingleOrDefault(teachers => teachers.Id == person.Id);
 
             {

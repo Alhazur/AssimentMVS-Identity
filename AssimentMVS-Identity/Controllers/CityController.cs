@@ -27,7 +27,7 @@ namespace AssimentMVS_Identity.Controllers
         {
             var vm = new PersonVM
             {
-                CityId = cityId//ta city id o koppla till person
+                CityId = cityId//tar city id o koppla till person
             };
 
             return View(vm);

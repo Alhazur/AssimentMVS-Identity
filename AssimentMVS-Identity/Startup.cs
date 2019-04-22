@@ -31,7 +31,8 @@ namespace AssimentMVS_Identity
             services.AddDbContext<TravelDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BasicContext")));
 
-            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<TravelDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<TravelDbContext>();
+
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IPersonService, PersonService>();
