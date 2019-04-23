@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AssimentMVS_Identity.DataBase;
+﻿using AssimentMVS_Identity.DataBase;
 using AssimentMVS_Identity.Models.Interface;
 using AssimentMVS_Identity.Models.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,11 +26,7 @@ namespace AssimentMVS_Identity
             services.AddDbContext<TravelDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BasicContext")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<TravelDbContext>();
-
-            services.AddScoped<ICountryService, CountryService>();
-            services.AddScoped<ICityService, CityService>();
-            services.AddScoped<IPersonService, PersonService>();
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<TravelDbContext>();
 
             services.Configure<IdentityOptions>(options =>
             {   // Default Password settings.
@@ -47,10 +38,11 @@ namespace AssimentMVS_Identity
                 options.Password.RequiredUniqueChars = 1;
             });
 
-            services.Configure<PasswordHasherOptions>(option =>
-            {
-                option.IterationCount = 100_000;
-            });
+            services.Configure<PasswordHasherOptions>(option =>{option.IterationCount = 100_000;});
+
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ICityService, CityService>();
+            services.AddScoped<IPersonService, PersonService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -70,9 +62,6 @@ namespace AssimentMVS_Identity
 
             app.UseMvc(routes =>
             {
-                //special route
-
-                //fallback to default
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

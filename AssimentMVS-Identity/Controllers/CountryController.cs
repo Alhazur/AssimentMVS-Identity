@@ -1,10 +1,12 @@
 ﻿using AssimentMVS_Identity.Models;
 using AssimentMVS_Identity.Models.Interface;
 using AssimentMVS_Identity.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssimentMVS_Identity.Controllers
 {
+    [Authorize]
     public class CountryController : Controller
     {
         private readonly ICountryService _countryService;
@@ -118,6 +120,7 @@ namespace AssimentMVS_Identity.Controllers
             vm.Country = country;
 
             vm.Cities = country.Cities;
+            vm.People = country.People;
             
             return View(country);
         }

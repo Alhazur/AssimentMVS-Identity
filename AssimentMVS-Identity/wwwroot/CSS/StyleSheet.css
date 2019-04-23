@@ -1,7 +1,11 @@
 ﻿body {
     background-image: url(https://cdn-images-1.medium.com/max/1600/1*CsDgB2D8KIetB_e37t3n_A.jpeg);
     padding: 10px;
+    color: brown;
 }
 .site{
     color: aliceblue;
+}
+.row{
+    padding-left: 8px;
 }
