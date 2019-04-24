@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using AssimentMVS_Identity.Models;
 using AssimentMVS_Identity.Models.Interface;
 using AssimentMVS_Identity.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AssimentMVS_Identity.Controllers
 {
+    [Authorize]
     public class PersonController : Controller
     {
         CountryVM CountryVM = new CountryVM();
@@ -42,7 +44,8 @@ namespace AssimentMVS_Identity.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            return BadRequest();            
+            
+            return BadRequest();
         }
 
         [HttpGet]
@@ -80,7 +83,7 @@ namespace AssimentMVS_Identity.Controllers
                 _personService.DeletePerson((int)id);
                 return RedirectToAction(nameof(Index));
             }
-            return Content("");
+            return Content("");            
         }
     }
 }

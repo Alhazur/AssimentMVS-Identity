@@ -8,12 +8,20 @@ namespace AssimentMVS_Identity.Models.Service
 {
     public class CountryService : ICountryService
     {
+        //public List<Country> countries = new List<Country>();
+
         private readonly TravelDbContext _travelDbContext;
 
         public CountryService(TravelDbContext travelDbContext)
         {
             _travelDbContext = travelDbContext;
         }
+
+        //public CountryService()
+        //{
+        //    countries.Add(new Country() { Name = "Sweden" });
+        //    countries.Add(new Country() { Name = "London" });
+        //}
 
         public List<Country> AllCountry()
         {

@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using AssimentMVS_Identity.DataBase;
+using AssimentMVS_Identity.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace AssimentMVS_Identity
 {
@@ -8,6 +11,8 @@ namespace AssimentMVS_Identity
     {
         internal static void Initialize(TravelDbContext context, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager)
         {
+            context.Database.EnsureCreated();
+
             if (!roleManager.RoleExistsAsync("Admin").Result)
             {
                 IdentityRole role = new IdentityRole("Admin");
@@ -52,7 +57,32 @@ namespace AssimentMVS_Identity
                 }
             }
 
-            //context.SaveChanges();
+            //---------------------------------------------------------------------------------
+
+            if (!context.Countries.Any())
+            {
+                var countries = new List<Country>();
+                {
+                    countries.Add(new Country() { Name = "Sweden" });
+                    countries.Add(new Country() { Name = "Sturbretanien" });
+                }
+                context.Countries.AddRange(countries);
+
+            }
+
+            if (!context.Cities.Any())
+            {
+                var cities = new List<City>();
+                {
+                    cities.Add(new City() { Name = "Alvesta" });
+                    cities.Add(new City() { Name = "London" });
+                }
+                context.Cities.AddRange(cities);
+            }
+
+            context.SaveChanges();
+
+
         }
     }
 }

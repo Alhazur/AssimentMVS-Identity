@@ -22,16 +22,20 @@
                     <a class="navbar-brand" href="#"><a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Travel</a></a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Person" asp-action="Index">Person list</a>
-                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Person" asp-action="Index">Person list</a>
+                        </li>
+                    }
+
                     @if (User.IsInRole("Admin"))
                     {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Country" asp-action="Index">World</a>
                         </li>
                     }
-                    </ul>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
 
                     @if (User.Identity.IsAuthenticated)
