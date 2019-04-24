@@ -68,19 +68,22 @@ namespace AssimentMVS_Identity
                 }
                 context.Countries.AddRange(countries);
 
-            }
+                context.SaveChanges();
 
-            if (!context.Cities.Any())
-            {
-                var cities = new List<City>();
+                if (!context.Cities.Any())
                 {
-                    cities.Add(new City() { Name = "Alvesta" });
-                    cities.Add(new City() { Name = "London" });
+                    var cities = new List<City>();
+                    {
+                        cities.Add(new City() { Name = "Alvesta" });
+                        cities.Add(new City() { Name = "London" });
+                    }
+                    context.Cities.AddRange(cities);
                 }
-                context.Cities.AddRange(cities);
+
+                context.SaveChanges();
             }
 
-            context.SaveChanges();
+            
 
 
         }

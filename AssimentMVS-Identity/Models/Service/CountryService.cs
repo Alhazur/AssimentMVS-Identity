@@ -8,8 +8,6 @@ namespace AssimentMVS_Identity.Models.Service
 {
     public class CountryService : ICountryService
     {
-        //public List<Country> countries = new List<Country>();
-
         private readonly TravelDbContext _travelDbContext;
 
         public CountryService(TravelDbContext travelDbContext)
@@ -17,16 +15,10 @@ namespace AssimentMVS_Identity.Models.Service
             _travelDbContext = travelDbContext;
         }
 
-        //public CountryService()
-        //{
-        //    countries.Add(new Country() { Name = "Sweden" });
-        //    countries.Add(new Country() { Name = "London" });
-        //}
-
         public List<Country> AllCountry()
         {
             return _travelDbContext.Countries
-                .Include(c => c.Cities)//001
+                .Include(c => c.Cities)
                 .ThenInclude(p => p.People)
                 .ToList();
         }
@@ -48,8 +40,8 @@ namespace AssimentMVS_Identity.Models.Service
             bool wasRemoved = false;
 
             Country country = _travelDbContext.Countries
-                .Include(s => s.Cities)//001
-                .ThenInclude(p => p.People)//ThenInclude Potom udaly esli ne nado?
+                .Include(s => s.Cities)
+                .ThenInclude(p => p.People)
                 .SingleOrDefault(g => g.Id == id);
 
             if (country == null)
@@ -65,8 +57,8 @@ namespace AssimentMVS_Identity.Models.Service
         public Country FindCountry(int id)
         {
             return _travelDbContext.Countries
-                .Include(c => c.Cities)//001
-                .ThenInclude(p => p.People)//ThenInclude Potom udaly esli ne nado?
+                .Include(c => c.Cities)
+                .ThenInclude(p => p.People)
                 .SingleOrDefault(c => c.Id == id);
         }
 
@@ -74,7 +66,7 @@ namespace AssimentMVS_Identity.Models.Service
         {
             bool wasUpdate = false;
             Country stud = _travelDbContext.Countries
-                .Include(s => s.Cities)//001
+                .Include(s => s.Cities)
                 .ThenInclude(p => p.People)
                 .SingleOrDefault(teachers => teachers.Id == country.Id);
             {

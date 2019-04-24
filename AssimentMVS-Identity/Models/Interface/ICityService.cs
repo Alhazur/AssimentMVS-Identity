@@ -4,7 +4,7 @@ namespace AssimentMVS_Identity.Models.Interface
 {
     public interface ICityService
     {
-        City CreateCity(City city, int countryId);//001
+        City CreateCity(City city, int countryId);
 
         List<City> AllCities();
 

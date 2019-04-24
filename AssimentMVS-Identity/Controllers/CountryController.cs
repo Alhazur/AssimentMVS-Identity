@@ -26,11 +26,24 @@ namespace AssimentMVS_Identity.Controllers
         public IActionResult CreateCountry()
         {
             return View();
+        }        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateCountry(Country country)
+        {
+            if (ModelState.IsValid)
+            {
+                country = _countryService.CreateCountry(country.Name);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(country);
         }
 
         public IActionResult CreateCity(int countryId)//001
         {
-            var vm = new CityVM
+            var vm = new CityVM//11111111111111111111111111111111111111111111111111111111
             {
                 CountryId = countryId
             };
@@ -48,19 +61,6 @@ namespace AssimentMVS_Identity.Controllers
                 return RedirectToAction(nameof(Details), "Country", new { id = countryId });
             }
             return View(city);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CreateCountry(Country country)
-        {
-            if (ModelState.IsValid)
-            {
-                country = _countryService.CreateCountry(country.Name);
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(country);
         }
 
         [HttpGet]
@@ -116,11 +116,11 @@ namespace AssimentMVS_Identity.Controllers
                 return NotFound();
             }
 
-            CountryVM vm = new CountryVM();//001
-            vm.Country = country;
+            //CountryVM vm = new CountryVM();//001
+            //vm.Country = country;
 
-            vm.Cities = country.Cities;
-            vm.People = country.People;
+            //vm.Cities = country.Cities;
+            //vm.People = country.People;
             
             return View(country);
         }

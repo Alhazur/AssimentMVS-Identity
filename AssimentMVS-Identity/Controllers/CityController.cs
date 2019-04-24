@@ -129,9 +129,9 @@ namespace AssimentMVS_Identity.Controllers
                 return NotFound();
             }
 
-            CountryVM vm = new CountryVM();//001
-            vm.City = FF;
-            vm.People = FF.People;
+            //CountryVM vm = new CountryVM();//001
+            //vm.City = FF;
+            //vm.People = FF.People;
 
             return View(FF);
         }

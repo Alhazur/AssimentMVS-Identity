@@ -9,10 +9,10 @@ namespace AssimentMVS_Identity.Models.ViewModel
         [Required]
         public string Name { get; set; }
 
-        public int CountryId { get; set; }//001
+        public int CountryId { get; set; }
         
-        public Country Country { get; set; }
+        //public Country Country { get; set; }
 
-        public List<Person> People = new List<Person>();
+        //public List<Person> People = new List<Person>();
     }
 }

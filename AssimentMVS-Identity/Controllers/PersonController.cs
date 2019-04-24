@@ -13,19 +13,22 @@ namespace AssimentMVS_Identity.Controllers
     [Authorize]
     public class PersonController : Controller
     {
-        CountryVM CountryVM = new CountryVM();
+        //CountryVM CountryVM = new CountryVM();
 
         private readonly IPersonService _personService;
+        private readonly ICityService _cityService;//********
 
-        public PersonController(IPersonService personService)
+        public PersonController(IPersonService personService, ICityService cityService)
         {
             _personService = personService;
+            _cityService = cityService;
         }
 
         public IActionResult Index()
         {
-            CountryVM.People = _personService.AllPersons();
-            return View(CountryVM.People);
+            //CountryVM.People = _personService.AllPersons();
+            //return View(CountryVM.People);
+            return View(_personService.AllPersons());
         }
 
         [HttpGet]
@@ -60,7 +63,15 @@ namespace AssimentMVS_Identity.Controllers
             {
                 return NotFound();
             }
-
+            ////********
+            //PersonVM personVM = new PersonVM
+            //{
+            //    Id = person.Id,
+            //    Name = person.Name,
+            //    Age = person.Age,
+            //    Cities = _cityService.AllCities(),
+            //};
+            ////********
             return View(person);
         }
 

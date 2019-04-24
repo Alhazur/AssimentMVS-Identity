@@ -21,7 +21,7 @@ namespace AssimentMVS_Identity.Models.Service
 
         public List<Person> AllPersons()
         {
-            return _travelDbContext.People.ToList();
+            return _travelDbContext.People.Include(c => c.City).ToList();//?????????????
         }
 
         public Person CreatePersonWithoutCity(Person person)
@@ -48,13 +48,13 @@ namespace AssimentMVS_Identity.Models.Service
             return null;
         }
 
-        public Person CreatePerson(Person person, int cityId)//001
+        public Person CreatePerson(Person person, int cityId)//koppla person till City
         {
             var city = _travelDbContext.Cities
-                   .Include(c => c.People)//001
+                   .Include(c => c.People)//koppla person till City
                    .SingleOrDefault(c => c.Id == cityId);
 
-            city.People.Add(person);//001
+            city.People.Add(person);//koppla person till City
 
             _travelDbContext.People.Add(person);
             _travelDbContext.SaveChanges();
@@ -79,10 +79,12 @@ namespace AssimentMVS_Identity.Models.Service
 
         public Person FindPerson(int id)
         {
-            return _travelDbContext.People.SingleOrDefault(c => c.Id == id);
+            return _travelDbContext.People
+                   .Include(c => c.City)//?????????????
+                .SingleOrDefault(c => c.Id == id);
         }
 
-        public Person FindPersonWithCity(int? id)//001
+        public Person FindPersonWithCity(int? id)
         {
             if (id != null)
             {
@@ -96,6 +98,7 @@ namespace AssimentMVS_Identity.Models.Service
         public bool UpdatePerson(Person person)
         {
             bool wasUpdate = false;
+
             Person stud = _travelDbContext.People
                 .SingleOrDefault(teachers => teachers.Id == person.Id);
             {
@@ -125,7 +128,7 @@ namespace AssimentMVS_Identity.Models.Service
                 {
                     stud.Name = person.Name;
                     stud.Age = person.Age;
-                    //stud.City = city;
+                    stud.City = person.City;//?????????????
 
                     _travelDbContext.SaveChanges();
                     wasUpdate = true;
