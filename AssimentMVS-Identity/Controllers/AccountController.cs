@@ -16,10 +16,13 @@ namespace AssimentMVS_Identity.Controllers
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(SignInManager<AppUser> signInManager,
-                                   UserManager<AppUser> userManager)
+                                   UserManager<AppUser> userManager,
+                                 RoleManager<IdentityRole> roleManager)
         {
+            _roleManager = roleManager;
             _signInManager = signInManager;
             _userManager = userManager;
         }
@@ -65,7 +68,7 @@ namespace AssimentMVS_Identity.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-        
+
         [HttpGet]
         public IActionResult CreateUser()
         {
@@ -96,6 +99,51 @@ namespace AssimentMVS_Identity.Controllers
             }
 
             return View(createuser);
+        }
+
+        public IActionResult RoleList()
+        {
+            return View(_roleManager.Roles.ToList());
+        }
+
+        [HttpGet]
+        public IActionResult AddRole()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Adddrole(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return View();
+            }
+
+            var result = await _roleManager.CreateAsync(new IdentityRole(name));
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("RoleList");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult AddUserToRole(string role)
+        {
+            ViewBag.Role = role;
+            return View(_userManager.Users.ToList());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddUserToRoleSave(string userId, string role)
+        {
+            var user = await _userManager.FindByIdAsync(userId);//FindByIdAsync?????????
+            var result = await _userManager.AddToRoleAsync(user, role);
+
+            return RedirectToAction(nameof(RoleList));
         }
     }
 }

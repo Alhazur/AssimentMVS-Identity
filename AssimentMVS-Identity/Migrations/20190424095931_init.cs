@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AssimentMVS_Identity.Migrations
 {
-    public partial class init_Travel : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -195,7 +195,8 @@ namespace AssimentMVS_Identity.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false),
                     Age = table.Column<int>(nullable: false),
-                    CityId = table.Column<int>(nullable: true)
+                    CityId = table.Column<int>(nullable: true),
+                    CountryId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -204,6 +205,12 @@ namespace AssimentMVS_Identity.Migrations
                         name: "FK_People_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_People_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -256,6 +263,11 @@ namespace AssimentMVS_Identity.Migrations
                 name: "IX_People_CityId",
                 table: "People",
                 column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_People_CountryId",
+                table: "People",
+                column: "CountryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

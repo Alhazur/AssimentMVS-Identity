@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AssimentMVS_Identity.Migrations
 {
     [DbContext(typeof(TravelDbContext))]
-    [Migration("20190416114820_init_Travel")]
-    partial class init_Travel
+    [Migration("20190424095931_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -74,7 +74,7 @@ namespace AssimentMVS_Identity.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("AssimentMVS_Identity.Models.Class.City", b =>
+            modelBuilder.Entity("AssimentMVS_Identity.Models.City", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,7 +92,7 @@ namespace AssimentMVS_Identity.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("AssimentMVS_Identity.Models.Class.Country", b =>
+            modelBuilder.Entity("AssimentMVS_Identity.Models.Country", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -116,12 +116,16 @@ namespace AssimentMVS_Identity.Migrations
 
                     b.Property<int?>("CityId");
 
+                    b.Property<int?>("CountryId");
+
                     b.Property<string>("Name")
                         .IsRequired();
 
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
+
+                    b.HasIndex("CountryId");
 
                     b.ToTable("People");
                 });
@@ -236,18 +240,22 @@ namespace AssimentMVS_Identity.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("AssimentMVS_Identity.Models.Class.City", b =>
+            modelBuilder.Entity("AssimentMVS_Identity.Models.City", b =>
                 {
-                    b.HasOne("AssimentMVS_Identity.Models.Class.Country", "Country")
+                    b.HasOne("AssimentMVS_Identity.Models.Country", "Country")
                         .WithMany("Cities")
                         .HasForeignKey("CountryId");
                 });
 
             modelBuilder.Entity("AssimentMVS_Identity.Models.Person", b =>
                 {
-                    b.HasOne("AssimentMVS_Identity.Models.Class.City", "City")
+                    b.HasOne("AssimentMVS_Identity.Models.City", "City")
                         .WithMany("People")
                         .HasForeignKey("CityId");
+
+                    b.HasOne("AssimentMVS_Identity.Models.Country")
+                        .WithMany("People")
+                        .HasForeignKey("CountryId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
