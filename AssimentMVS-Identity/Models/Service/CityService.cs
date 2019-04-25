@@ -20,14 +20,14 @@ namespace AssimentMVS_Identity.Models.Service
             return _travelDbContext.Cities.ToList();
         }
 
-        public City CreateCity(City city, int countryId)//001
+        public City CreateCity(City city, int countryId)
         {
             var name = _travelDbContext.Countries
-                .Include(c => c.Cities)//001
+                .Include(c => c.Cities)
                 .ThenInclude(p => p.People)
                 .SingleOrDefault(c => c.Id == countryId);
 
-            name.Cities.Add(city);//001
+            name.Cities.Add(city);
 
             _travelDbContext.SaveChanges();
             return city;
@@ -64,8 +64,6 @@ namespace AssimentMVS_Identity.Models.Service
                 .SingleOrDefault(x => x.Id == id);
 
             return city;
-
-            //return _travelDbContext.Cities.SingleOrDefault(c => c.Id == id);
         }
 
         public bool UpdateCity(City city)

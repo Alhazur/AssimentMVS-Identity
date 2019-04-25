@@ -13,10 +13,9 @@ namespace AssimentMVS_Identity.Controllers
     [Authorize]
     public class PersonController : Controller
     {
-        //CountryVM CountryVM = new CountryVM();
 
         private readonly IPersonService _personService;
-        private readonly ICityService _cityService;//********
+        private readonly ICityService _cityService;
 
         public PersonController(IPersonService personService, ICityService cityService)
         {
@@ -26,24 +25,24 @@ namespace AssimentMVS_Identity.Controllers
 
         public IActionResult Index()
         {
-            //CountryVM.People = _personService.AllPersons();
-            //return View(CountryVM.People);
             return View(_personService.AllPersons());
         }
 
         [HttpGet]
         public IActionResult CreatePerson()
         {
-            return View();
+            PersonVM personVM = new PersonVM();
+            personVM.Cities = _cityService.AllCities();
+            return View(personVM);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreatePerson(Person person)
+        public IActionResult CreatePerson(Person person, int cityId)
         {
             if (ModelState.IsValid)
             {
-                person = _personService.CreatePersonWithoutCity(person);
+                person = _personService.CreatePerson(person, cityId);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -63,15 +62,7 @@ namespace AssimentMVS_Identity.Controllers
             {
                 return NotFound();
             }
-            ////********
-            //PersonVM personVM = new PersonVM
-            //{
-            //    Id = person.Id,
-            //    Name = person.Name,
-            //    Age = person.Age,
-            //    Cities = _cityService.AllCities(),
-            //};
-            ////********
+            
             return View(person);
         }
 

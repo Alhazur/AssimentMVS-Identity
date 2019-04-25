@@ -1,4 +1,4 @@
-﻿@model Person
+﻿@model PersonVM
 @{
     ViewData["Title"] = "CreatePerson";
 }
@@ -22,17 +22,18 @@
                     <span asp-validation-for="Age" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <div>Choose an City:</div>
+                    <select asp-for="CityId">
+                        @foreach (var item in Model.Cities)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
                     <a class="btn btn-danger" asp-action="Index">Back</a>
                     <input type="submit" value="Create" class="btn btn-sm btn-success" />
                 </div>
-                @*<div class="form-group">
-                    <select asp-for="City.Id">
-                        @foreach (var item in Model.City.Name)
-                        {
-                            <option value="Id">@item</option>
-                        }
-                    </select>
-                </div>*@
             </div>
         </form>
     </div>

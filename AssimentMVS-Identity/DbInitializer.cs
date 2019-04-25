@@ -70,17 +70,17 @@ namespace AssimentMVS_Identity
 
                 context.SaveChanges();
 
-                if (!context.Cities.Any())
-                {
-                    var cities = new List<City>();
-                    {
-                        cities.Add(new City() { Name = "Alvesta" });
-                        cities.Add(new City() { Name = "London" });
-                    }
-                    context.Cities.AddRange(cities);
-                }
+                //if (!context.Cities.Any())
+                //{
+                //    var cities = new List<City>();
+                //    {
+                //        cities.Add(new City() { Name = "Alvesta" });
+                //        cities.Add(new City() { Name = "London" });
+                //    }
+                //    context.Cities.AddRange(cities);
+                //}
 
-                context.SaveChanges();
+                //context.SaveChanges();
             }
 
             

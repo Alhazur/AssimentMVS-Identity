@@ -15,6 +15,5 @@ namespace AssimentMVS_Identity.Models.ViewModel
 
         public List<City> Cities = new List<City>();
 
-        public List<Country> Countries = new List<Country>();
     }
 }

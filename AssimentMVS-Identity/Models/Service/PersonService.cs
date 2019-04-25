@@ -21,32 +21,33 @@ namespace AssimentMVS_Identity.Models.Service
 
         public List<Person> AllPersons()
         {
-            return _travelDbContext.People.Include(c => c.City).ToList();//?????????????
+            return _travelDbContext.People.Include(c => c.City).ToList();
         }
 
-        public Person CreatePersonWithoutCity(Person person)
-        {
-            if (person == null)
-            {
-                return null;
-            }
+        //public Person CreatePersonWithoutCity(Person person)
+        //{
+        //    if (person == null)
+        //    {
+        //        return null;
+        //    }
 
-            Person newPerson = new Person()
-            {
-                Name = person.Name,
-                Age = person.Age,
-            };
+        //    Person newPerson = new Person()
+        //    {
+        //        Name = person.Name,
+        //        Age = person.Age,
+        //        City = person.City
+        //    };
 
-            if (newPerson != null)
-            {
-                _travelDbContext.People.Add(newPerson);
-                _travelDbContext.SaveChanges();
+        //    if (newPerson != null)
+        //    {
+        //        _travelDbContext.People.Add(newPerson);
+        //        _travelDbContext.SaveChanges();
 
-                return newPerson;
-            }
+        //        return newPerson;
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
         public Person CreatePerson(Person person, int cityId)//koppla person till City
         {
@@ -80,7 +81,7 @@ namespace AssimentMVS_Identity.Models.Service
         public Person FindPerson(int id)
         {
             return _travelDbContext.People
-                   .Include(c => c.City)//?????????????
+                   .Include(c => c.City)
                 .SingleOrDefault(c => c.Id == id);
         }
 
@@ -128,7 +129,7 @@ namespace AssimentMVS_Identity.Models.Service
                 {
                     stud.Name = person.Name;
                     stud.Age = person.Age;
-                    stud.City = person.City;//?????????????
+                    stud.City = person.City;
 
                     _travelDbContext.SaveChanges();
                     wasUpdate = true;

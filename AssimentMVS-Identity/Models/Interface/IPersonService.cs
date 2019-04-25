@@ -16,7 +16,7 @@ namespace AssimentMVS_Identity.Models.Interface
 
         bool DeletePerson(int id);
 
-        Person CreatePersonWithoutCity(Person person);
+        //Person CreatePersonWithoutCity(Person person);
 
         Person FindPersonWithCity(int? id);
     }
