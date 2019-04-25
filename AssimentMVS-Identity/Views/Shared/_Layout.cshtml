@@ -38,7 +38,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 
-                    @if (User.Identity.IsAuthenticated)
+                    @if (User.IsInRole("Admin"))
                     {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="CreateUser">Register</a>
@@ -46,6 +46,10 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="RoleList">Roles</a>
                         </li>
+                    }
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                         </li>

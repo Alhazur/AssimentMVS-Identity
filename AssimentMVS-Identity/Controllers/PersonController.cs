@@ -62,16 +62,30 @@ namespace AssimentMVS_Identity.Controllers
             {
                 return NotFound();
             }
-            
-            return View(person);
+            PersonVM personVM = new PersonVM
+            {
+                Id = person.Id,
+                Name = person.Name,
+                Age = person.Age,
+                Cities = _cityService.AllCities(),
+            };
+            return View(personVM);
         }
 
         [HttpPost]
-        public IActionResult Edit(Person person)
+        public IActionResult Edit(PersonVM person)
         {
             if (ModelState.IsValid)
             {
-                _personService.UpdatePerson(person);
+                var c = _cityService.FindCity(person.CityId);
+                var CityUp = new Person
+                {
+                    Name = person.Name,
+                    Age = person.Age,
+                    City = c,
+                    Id = person.Id
+                };
+                _personService.UpdatePerson(CityUp);
                 return RedirectToAction(nameof(Index));
             }
 

@@ -107,7 +107,7 @@ namespace AssimentMVS_Identity.Models.Service
                 {
                     stud.Name = person.Name;
                     stud.Age = person.Age;
-
+                    stud.City = person.City;
                     _travelDbContext.SaveChanges();
                     wasUpdate = true;
                 }
