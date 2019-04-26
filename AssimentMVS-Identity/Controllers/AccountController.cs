@@ -114,7 +114,7 @@ namespace AssimentMVS_Identity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Adddrole(string name)
+        public async Task<IActionResult> AddRole(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -142,7 +142,7 @@ namespace AssimentMVS_Identity.Controllers
         {
             var user = await _userManager.FindByIdAsync(userId);//FindByIdAsync?????????
             var result = await _userManager.AddToRoleAsync(user, role);
-
+            
             return RedirectToAction(nameof(RoleList));
         }
     }

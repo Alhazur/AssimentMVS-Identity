@@ -1,4 +1,5 @@
 ﻿@model List<AppUser>
+@inject UserManager<AppUser> UserManager
 @{
     ViewData["Title"] = "AddUserToRole";
 }
@@ -9,8 +10,14 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.UserName</td>
-            <td>@Html.ActionLink("Give role", "AddUserToRoleSave", "Account", new {role = ViewBag.Role, userId = item.Id })</td>
+            <td>@item.UserName-</td>
+            <td>
+                @foreach (var role in await UserManager.GetRolesAsync(item))
+                {
+                    <text> Is: @role</text>
+                }
+            </td>
+            <td>@Html.ActionLink("Give role", "AddUserToRoleSave", "Account", new { role = ViewBag.Role, userId = item.Id })</td>
         </tr>
     }
 </table>
